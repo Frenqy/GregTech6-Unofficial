@@ -1,11 +1,11 @@
 buildscript {
 	repositories {
 		mavenCentral()
-		jcenter()
-		//maven {
-		//	name = "forge"
-		//	url = "https://files.minecraftforge.net/maven"
-		//}
+		//jcenter()
+        maven {
+            name = "forge"
+            url = "https://maven.minecraftforge.net"
+        }
 		maven {
 			name = "gt"
 			url = "https://gregtech.overminddl1.com/"
@@ -15,11 +15,11 @@ buildscript {
 			url = "https://oss.sonatype.org/content/repositories/snapshots/"
 		}
 	}
-	dependencies {
-		classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
-		//classpath 'net.onedaybeard.artemis:artemis-odb-gradle-plugin:2.2.0'
-		//classpath 'net.onedaybeard.artemis:artemis-fluid-gradle-plugin:2.2.0'
-	}
+    dependencies {
+        classpath ('com.anatawa12.forge:ForgeGradle:1.2-1.0.+') {
+            changing = true
+        }
+    }
 }
 
 allprojects {
@@ -153,8 +153,7 @@ group = "com.gregoriust.gregtech"
 archivesBaseName = "gregtech_1.7.10"
 version = "<UNKNOWN>"
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+targetCompatibility = sourceCompatibility = JavaVersion.VERSION_1_8;
 compileJava.options.bootClasspath = org.gradle.internal.jvm.Jvm.current().getJre().getHomeDir().toString() +"/lib/rt.jar"
 compileJava {
 	options.encoding = "UTF-8"
@@ -173,7 +172,9 @@ minecraft {
 	//srgExtra "PK: net/mostlyoriginal gregtech/thirdparty/net/mostlyoriginal"
 	//srgExtra "PK: net/fbridault/eeel gregtech/thirdparty/net/fbridault/eeel"
 }
-
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
 dependencies {
 	//compile fileTree(dir: 'libs', include: '*.jar')
 	//shade 'net.onedaybeard.artemis:artemis-odb:2.2.0'
